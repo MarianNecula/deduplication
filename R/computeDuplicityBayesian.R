@@ -141,6 +141,21 @@ computeDuplicityBayesian <-
     } else {
       stop("Method unknown!")
     }
+    
+    # reinsert filtered devices with probability 1 if missing 
+    devices <- getDeviceIDs(events)
+    
+    # if(nrow(dupP.dt) != length(devices)){
+    #   filtered <- devices[!(devices %in% dupP.dt$deviceID)]
+    #   filtered.dt <- data.table(deviceID = filtered,
+    #                             dupP = rep(1, length(filtered)))
+    #   dupP.dt <- rbindlist(list(dupP.dt, filtered.dt))
+    # }
+    
+    dupP.dt <- dt2ColAppend(dupP.dt, devices)
+    
+    ##########################################################
+
     return(dupP.dt)
   }
 
@@ -191,6 +206,7 @@ do1to1 <-
       } #end for j
     }
     return(ll.matrix)
+    
   }
 
 doPair <-

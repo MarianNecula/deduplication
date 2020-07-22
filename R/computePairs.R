@@ -13,7 +13,7 @@
 #'   \code{getConnections()} function.
 #'
 #' @param ndevices The number of devices registered by the network. A vector with device IDs can be obtained by calling
-#'   \code{getDevices()} function and the number of devices is simply the lenght of this vector.
+#'   \code{getDevices()} function and the number of devices is simply the length of this vector.
 #'
 #' @param oneToOne If TRUE, the result is built to apply the method "1to1" to compute the duplicity probability for each
 #'   device. This means that the result will contain all combinations of devices. If FALSE, the result will consider the
@@ -49,6 +49,7 @@ computePairs <- function(connections, ndevices, oneToOne = TRUE, P1 = 0, limit =
   pairs4duplicity <- NULL
   
   connections[is.na(connections)] <- "NA"
+  
   connections <- data.table(connections)[, index := .I]
   
   # make combinations of all devices
