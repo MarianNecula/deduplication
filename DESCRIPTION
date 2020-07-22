@@ -54,7 +54,6 @@ Collate:
     'getEmissionProbsJointModel.R'
     'getGenericModel.R'
     'getJointModel.R'
-    'filterStatDevId.R'
     'modeDelta.R'
     'readCells.R'
     'readEvents.R'

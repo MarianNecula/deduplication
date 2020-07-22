@@ -37,9 +37,6 @@ getConnections <- function(events) {
       merge(evv, events[deviceID == devices[i], ][, c(1, 4)], by = 'time', all.x = TRUE)[, c(1, 3)]
     connections[i, ] <- t(evv[, 2])
   }
-  
-  # added row.names
-    row.names(connections) <- devices
     
     return (connections)
 }

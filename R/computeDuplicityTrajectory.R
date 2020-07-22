@@ -76,6 +76,18 @@ computeDuplicityTrajectory <-function(path, devices, gridParams, pairs, P1 , T, 
   res<-clusterApplyLB(cl, ichunks3, doPairs, pairs, cpp, ndevices, dr, T, alpha, gamma)
   stopCluster(cl)
   dup<-buildDuplicityTablePairs(res, devices)
+  
+  
+  # reinsert filtered devices with probability 1 if missing 
+  # inefficient reread inputs
+  devs <- setdiff(getDeviceIDs(readEvents(system.file(path_root, 'AntennaInfo_MNO_MNO1.csv', package = 'deduplication'))), devices)
+  
+  if(length(devs) != 0){
+    dup <-  rbindlist(list(dup, data.table(deviceID = devs, dupP = rep(1, length(devs)))))
+  }
+  
+  ##########################################################
+  
   return (dup)
   
 }

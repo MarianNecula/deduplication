@@ -143,16 +143,12 @@ computeDuplicityBayesian <-
     }
     
     # reinsert filtered devices with probability 1 if missing 
-    devices <- getDeviceIDs(events)
-    
-    # if(nrow(dupP.dt) != length(devices)){
-    #   filtered <- devices[!(devices %in% dupP.dt$deviceID)]
-    #   filtered.dt <- data.table(deviceID = filtered,
-    #                             dupP = rep(1, length(filtered)))
-    #   dupP.dt <- rbindlist(list(dupP.dt, filtered.dt))
-    # }
-    
-    dupP.dt <- dt2ColAppend(dupP.dt, devices)
+    # inefficient reread inputs
+    devs <- setdiff(getDeviceIDs(readEvents(system.file(path_root, 'AntennaInfo_MNO_MNO1.csv', package = 'deduplication'))), deviceIDs)
+   
+     if(length(devs) != 0){
+    dupP.dt <-  rbindlist(list(dupP.dt, data.table(deviceID = devs, dupP = rep(1, length(devs)))))
+    }
     
     ##########################################################
 
